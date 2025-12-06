@@ -1,0 +1,51 @@
+services:
+  pozor_dom_auth_postgres:
+    image: postgres:18.1-alpine3.22
+    container_name: pozor_dom_auth_postgres
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=pozor_dom_auth_service
+    ports:
+      - 5434:5432
+    volumes:
+      - auth_postgres_data:/var/lib/postgresql/data
+    networks:
+      - microservices_net
+    restart: unless-stopped
+
+  pozor_dom_auth_service:
+    build:
+      context: PozorDomAuthService
+      dockerfile: Dockerfile
+    container_name: pozor_dom_auth_service
+    ports:
+      - 5000:8080
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - pozor_dom_auth_postgres
+    networks:
+      - microservices_net
+    restart: unless-stopped
+
+  pozor_dom_gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pozor_dom_gateway
+    ports:
+      - 80:80
+    depends_on:
+      - pozor_dom_auth_service
+    networks:
+      - microservices_net
+    restart: unless-stopped
+
+volumes:
+  auth_postgres_data:
+    driver: local
+
+networks:
+  microservices_net:
+    driver: bridge
