@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="AuthorizationService.Application/AuthorizationService.Application.csproj" Id="bee855e0-0710-410f-a102-83cf9d35b52e" />
+  <Project Path="AuthorizationService.Domain.Tests/AuthorizationService.Domain.Tests.csproj" />
+  <Project Path="AuthorizationService.Domain/AuthorizationService.Domain.csproj" />
+  <Project Path="AuthorizationService.Infrastructure/AuthorizationService.Infrastructure.csproj" Id="44b6d982-e662-40b4-b393-56fa31f8c5af" />
+  <Project Path="AuthorizationService.Persistence.Tests/AuthorizationService.Persistence.Tests.csproj" Id="f8eedf30-c9ca-49f6-8c47-f28895ce129d" />
+  <Project Path="AuthorizationService.Persistence/AuthorizationService.Persistence.csproj" />
+  <Project Path="AuthorizationService.Web/AuthorizationService.Web.csproj" />
+</Solution>
