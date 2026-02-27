@@ -6,6 +6,7 @@ namespace StoreService.Domain.Entities
     {
         public Guid Id { get; private set; }
         public Name Name { get; private set; }
+        public List<Device> Devices { get; private set; } = [];
 
 #pragma warning disable CS8618
         private DeviceType() { }
@@ -17,14 +18,10 @@ namespace StoreService.Domain.Entities
             Name = name;
         }
 
+
         public static DeviceType Create(Name name)
         {
             return new DeviceType(name);
-        }
-
-        public void ChangeName(Name name)
-        {
-            Name = name;
         }
     }
 }
