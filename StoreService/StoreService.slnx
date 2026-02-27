@@ -1,4 +1,5 @@
 <Solution>
-  <Project Path="StoreService.Web/StoreService.Web.csproj" />
   <Project Path="StoreService.Domain/StoreService.Domain.csproj" />
+  <Project Path="StoreService.Persistence/StoreService.Persistence.csproj" Id="3fcecc94-04fa-49aa-8220-394662167f36" />
+  <Project Path="StoreService.Web/StoreService.Web.csproj" />
 </Solution>
