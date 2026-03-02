@@ -4,14 +4,11 @@ namespace StoreService.Domain.ValueObjects
 {
     public record Name
     {
-        public const int MAX_NAME_LENGTH = 64;
+        public const int MAX_LENGTH = 64;
 
         public string Value { get; }
 
-        private Name(string vlaue)
-        {
-            Value = vlaue;
-        }
+        private Name(string value) => Value = value;
 
         public static Name Create(string value)
         {
@@ -20,9 +17,9 @@ namespace StoreService.Domain.ValueObjects
                 throw new DomainException("Name cannot be null or empty.");
             }
 
-            if (value.Length > MAX_NAME_LENGTH)
+            if (value.Length > MAX_LENGTH)
             {
-                throw new DomainException($"Name must not exceed {MAX_NAME_LENGTH} characters.");
+                throw new DomainException($"Name must not exceed {MAX_LENGTH} characters.");
             }
 
             return new Name(value);

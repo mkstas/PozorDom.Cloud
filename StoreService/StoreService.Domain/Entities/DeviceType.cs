@@ -2,9 +2,11 @@
 
 namespace StoreService.Domain.Entities
 {
+    public record DeviceTypeId(Guid Value);
+
     public class DeviceType
     {
-        public Guid Id { get; private set; }
+        public DeviceTypeId Id { get; private set; }
         public Name Name { get; private set; }
         public List<Device> Devices { get; private set; } = [];
 
@@ -14,14 +16,12 @@ namespace StoreService.Domain.Entities
 
         private DeviceType(Name name)
         {
-            Id = Guid.NewGuid();
+            Id = new DeviceTypeId(Guid.NewGuid());
             Name = name;
         }
 
+        public static DeviceType Create(Name name) => new(name);
 
-        public static DeviceType Create(Name name)
-        {
-            return new DeviceType(name);
-        }
+        public void ChangeName(Name name) => Name = name;
     }
 }

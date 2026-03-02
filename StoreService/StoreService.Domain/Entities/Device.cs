@@ -1,12 +1,13 @@
-﻿using StoreService.Domain.Shared.Exceptions;
-using StoreService.Domain.ValueObjects;
+﻿using StoreService.Domain.ValueObjects;
 
 namespace StoreService.Domain.Entities
 {
+    public record DeviceId(Guid Value);
+
     public class Device
     {
-        public Guid Id { get; private set; }
-        public Guid DeviceTypeId { get; private set; }
+        public DeviceId Id { get; private set; }
+        public DeviceTypeId DeviceTypeId { get; private set; }
         public DeviceType? DeviceType { get; private set; }
         public Name Name { get; private set; }
         public ImageUrl? ImageUrl { get; private set; }
@@ -15,22 +16,20 @@ namespace StoreService.Domain.Entities
         private Device() { }
 #pragma warning restore CS8618
 
-        private Device(Guid deviceTypeId, Name name, ImageUrl? imageUrl)
+        private Device(DeviceTypeId deviceTypeId, Name name, ImageUrl? imageUrl)
         {
-            Id = Guid.NewGuid();
+            Id = new DeviceId(Guid.NewGuid());
             DeviceTypeId = deviceTypeId;
             Name = name;
             ImageUrl = imageUrl;
         }
 
-        public static Device Create(Guid deviceTypeId, Name name, ImageUrl? imageUrl)
-        {
-            if (deviceTypeId == Guid.Empty)
-            {
-                throw new DomainException("DeviceTypeId cannot be empty.");
-            }
+        public static Device Create(DeviceTypeId deviceTypeId, Name name, ImageUrl? imageUrl) =>
+            new(deviceTypeId, name, imageUrl);
 
-            return new Device(deviceTypeId, name, imageUrl);
-        }
+        public void ChangeDeviceType(DeviceTypeId deviceTypeId) => DeviceTypeId = deviceTypeId;
+        public void ChangeName(Name name) => Name = name;
+        public void ChangeImageUrl(ImageUrl imageUrl) => ImageUrl = imageUrl;
+        public void DeleteImageUrl() => ImageUrl = null;
     }
 }

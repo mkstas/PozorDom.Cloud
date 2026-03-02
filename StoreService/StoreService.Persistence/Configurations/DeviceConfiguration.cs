@@ -13,14 +13,23 @@ namespace StoreService.Persistence.Configurations
             builder.HasKey(d => d.Id);
 
             builder.Property(d => d.Id)
+                   .HasConversion(
+                        id => id.Value,
+                        value => new DeviceId(value))
                    .HasColumnName("id");
+
+            builder.Property(d => d.DeviceTypeId)
+                   .HasConversion(
+                        id => id.Value,
+                        value => new DeviceTypeId(value))
+                   .HasColumnName("device_type_id");
 
             builder.OwnsOne(d => d.Name, b =>
             {
                 b.Property(n => n.Value)
                  .IsRequired()
                  .HasColumnName("name")
-                 .HasMaxLength(Name.MAX_NAME_LENGTH);
+                 .HasMaxLength(Name.MAX_LENGTH);
             });
 
             builder.OwnsOne(d => d.ImageUrl, b =>
